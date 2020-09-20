@@ -203,7 +203,7 @@ impl Package{
         }
     }
 
-    // Returns the package installation date
+    // Returns the package installation date as a unix timestamp
     pub fn install_date(&self) -> i64 {
         unsafe {
             return alpm_pkg_get_installdate(self.pkg);
