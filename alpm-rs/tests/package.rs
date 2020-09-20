@@ -17,6 +17,7 @@ fn pkg_cache() {
         assert_ne!(p.name(), "");
         assert_ne!(p.version(), "");
         assert_ne!(p.url(), "");
+        p.install_date();
     }
 }
 

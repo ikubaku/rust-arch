@@ -24,6 +24,7 @@ extern {
     fn alpm_pkg_compute_optionalfor(pkg: *mut alpm_pkg_t)-> *mut alpm_list_t;
     fn alpm_pkg_get_validation(pkg: *mut alpm_pkg_t) -> i32;
     fn alpm_pkg_get_db(pkg: *mut alpm_pkg_t) -> *mut alpm_db_t;
+    fn alpm_pkg_get_installdate(pkg: *mut alpm_pkg_t) -> i64;
 
     fn alpm_sync_newversion(pkg: *mut alpm_pkg_t, db_sync: *mut alpm_list_t) -> *mut alpm_pkg_t;
 }
@@ -199,6 +200,13 @@ impl Package{
                 println!(">not null");
                 Some(p)
             }
+        }
+    }
+
+    // Returns the package installation date as a unix timestamp
+    pub fn install_date(&self) -> i64 {
+        unsafe {
+            return alpm_pkg_get_installdate(self.pkg);
         }
     }
 
