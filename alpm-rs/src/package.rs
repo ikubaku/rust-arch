@@ -26,7 +26,7 @@ extern {
     fn alpm_pkg_get_db(pkg: *mut alpm_pkg_t) -> *mut alpm_db_t;
     fn alpm_pkg_get_installdate(pkg: *mut alpm_pkg_t) -> i64;
 
-    fn alpm_sync_newversion(pkg: *mut alpm_pkg_t, db_sync: *mut alpm_list_t) -> *mut alpm_pkg_t;
+    fn alpm_sync_get_new_version(pkg: *mut alpm_pkg_t, db_sync: *mut alpm_list_t) -> *mut alpm_pkg_t;
 }
 
 pub type PackageList = AlpmList<Package>;
@@ -193,7 +193,7 @@ impl Package{
     pub fn newer_version(&self, dbs: &DBList) -> Option<Package> {
         
         unsafe {
-            let p : Package = alpm_sync_newversion(self.pkg, dbs.list).into();
+            let p : Package = alpm_sync_get_new_version(self.pkg, dbs.list).into();
             if p.pkg == std::ptr::null_mut(){
                 None
             }else{
